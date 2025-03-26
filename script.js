@@ -21,14 +21,25 @@ getPostTitle(1)
 
 function lanciaDado(scelta) {
     return new Promise((vittoria,sconfitta) => {
-        const result = Math.random() < 0.5 ? 'Testa' : 'croce';
+        let result = Math.random()
+
+        if(result < 0.4){
+            result = 'Testa'
+        }else if(result>0.4 && result<0.8){
+            result = 'Croce'
+        }else{
+            result = 'Non valido'
+        }
+        console.log(result)
         setTimeout(() => {
-            if (scelta.toLowerCase() === result.toLocaleLowerCase()) {
-                vittoria(`Hai vinto è uscita ${result}`)
-            }else{
-                sconfitta(`Hai perso è uscita ${result}`)
+            if (result === 'Non valido') {
+                sconfitta('La moneta è rimasta incastrata il tiro non è valido');
+            } else if (scelta.toLowerCase() === result.toLowerCase()) {
+                vittoria(`Hai vinto è uscita ${result}`);
+            } else {
+                sconfitta(`Hai perso è uscita ${result}`);
             }
-        }, 5000);
+        }, 3000);
     })
 }
 
